@@ -1,0 +1,67 @@
+look what I did on Codesters today!
+
+stage.set_background("spring")
+stage.create_grid_overlay(50, "pink")
+
+good_guy = codesters.Sprite("butterfly")
+bad_guy = codesters.Sprite("dragon")
+missile = codesters.Sprite("baseball")
+
+# sprite = codesters.Rectangle(x, y, width, height, "color")
+bottom = codesters.Rectangle(0, -246, 500, 5, "red")
+
+
+good_guy.set_y(-150)
+bad_guy.set_y(150)
+missile.set_x(200)
+
+good_guy.set_size(1)
+bad_guy.set_size(0.6)
+missile.set_size(0.7)
+bad_guy.set_y_speed(1.5)
+def left_key():
+    if good_guy.get_x() > -230:
+        # add your code here
+        good_guy.move_left(20)
+    # add other actions...
+        
+stage.event_key("left", left_key)   
+
+
+
+def right_key():
+    if good_guy.get_x() < 230:
+        # add your code here
+        good_guy.move_right(20)
+    # add other actions...
+    
+stage.event_key("right", right_key)
+
+def space_bar():
+    missile.set_x(good_guy.get_x())
+    missile.set_y(good_guy.get_y())
+    missile.set_y_speed(1)
+    missile.show()
+stage.event_key("space", space_bar)
+
+def collision(sprite, hit_sprite):
+    
+    if hit_sprite == bottom:
+        you_lose()
+    
+    if hit_sprite == missile:
+        kill_bad_guy()
+    
+    
+bad_guy.event_collision(collision)
+
+def you_lose():
+    good_guy.say("You Lose!")
+    bad_guy.hide()
+
+
+def kill_bad_guy():
+    
+    bad_guy.set_y(250)
+    missile.hide()
+    
